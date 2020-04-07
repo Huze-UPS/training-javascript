@@ -5,6 +5,16 @@
     <meta charset="utf-8">
 
     <script>
+        function sequence(entier){
+            let plage = -entier;
+            let res = 0;
+            for(plage; plage < entier; plage ++){
+                if(plage % 2 === 0){
+                    res += plage ** 4; 
+                }
+            }
+            return res;
+        }
     </script>
 
 </head>
