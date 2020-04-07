@@ -6,14 +6,8 @@
 
     <script>
         function isModuloZero( int1, int2){
-            if(int1 < int2){
-                return ("Attention Arg 2 doit être inférieur à Arg 1 !");
-            }
-            let monbool = false;
-            if(int1 % int2 === 0){
-                monbool = true;
-            }
-            return monbool;
+            return int2 > int1 ? "Attention Arg 2 doit être inférieur à Arg 1 !":
+                int1 % int2 === 0;
         }
 
     </script>
