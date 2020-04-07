@@ -6,30 +6,26 @@
 
     <script>
         function isItWeekendYet(jour){
+            let s_helas = "Hélas, non !";
+            let s_oui = "Oui !";
+
             switch(jour){
                 case "lundi":
-                    console.log("Hélas, non ! C'était hier !");
-                    break;
+                    return (s_helas + " C'était hier !");
                 case "mardi":
-                    console.log("Hélas, non !");
-                    break;
+                    return (s_helas);
                 case "mercredi":
-                    console.log("Hélas, non ! Toujours pas !");
-                    break;
+                    return (s_helas + " Toujours pas !");
                 case "jeudi":
-                    console.log("Hélas, non ! Mais bientôt !");
-                    break;
+                    return(s_helas + " Mais bientôt !");
                 case "vendredi":
-                    console.log("Oui !");
-                    break;
+                    return(s_oui);
                 case "samedi":
-                    console.log("Oui ! Profite bien !");
-                    break;
+                    return(s_oui + " Profite bien !");
                 case "dimanche":
-                    console.log("Oui ! Mais c'est la fin !");
-                    break;
+                    return(s_oui + " Mais c'est la fin !");
                 default:
-                    console.log("Hélas, non ! Tu es sûr que ${jour} est un jour qui existe ?");
+                    return(s_helas + " Tu es sûr que " + jour + " est un jour qui existe ?");
             }
         }
     </script>
