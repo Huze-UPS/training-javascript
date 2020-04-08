@@ -10,8 +10,60 @@
             return Math.ceil(Math.random() * 10)
         }
 
-        function play() {
+        class Player {
 
+            /**@constructor
+              *name  === Nom du joueur
+              *position === Position actuelle du joueur initialisé à 0,0
+              *moving === Façon de se déplacer du joueur
+            */
+            constructor(name) {
+                this.name = name;
+                this.positionX = 0;
+                this.positionY = 0;
+            }
+
+            /**@method
+              *moving permet de se déplacé 
+            */
+            move() {
+                let x = random();
+                let y = random();
+                console.log(`${this.name} est en ${this.positionX},${this.positionY}.`);
+                if(this.positionX + x > 100){
+                    this.positionX -= x;
+                }
+                else{
+                    this.positionX += x;
+                }
+                if(this.positionY + y > 100){
+                    this.positionY -= y;
+                }
+                else{
+                    this.positionY += y;
+                }
+                console.log(`${this.name} s'est déplacé en ${this.positionX},${this.positionY}.`);
+            }
+        }
+
+        function play() {
+            victory = false;
+            const P1 = new Player('P1');
+            const P2 = new Player('P2');
+            const P3 = new Player('P3');
+            const arrP = [P1, P2, P3];
+            console.log('Le jeu commence !');
+            while(victory === false){
+                for(let player = 0; player < 3; player++) {
+                    arrP[player].move()
+                    if(arrP[player].positionX === 100 && arrP[player].positionY === 100){
+                        victory = true;
+                        winner = arrP[player].name;
+                        continue;
+                    }
+                };
+            }
+            console.log(`Le vainqueur est ${winner} ! Félicitation à lui !`)
         }
     </script>
 
