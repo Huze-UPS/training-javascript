@@ -59,11 +59,11 @@
                     if(arrP[player].positionX === 100 && arrP[player].positionY === 100){
                         victory = true;
                         winner = arrP[player].name;
-                        continue;
+                        console.log(`Le vainqueur est ${winner} ! Félicitation à lui !`);
+                        break;
                     }
                 };
             }
-            console.log(`Le vainqueur est ${winner} ! Félicitation à lui !`)
         }
     </script>
 

@@ -5,6 +5,23 @@
     <meta charset="utf-8">
 
     <script>
+
+        function getCountryByCode(code) {
+            if(countries.find(item => item.code === code)){
+                return (countries.find(item => item.code === code).name);
+            }
+            else{
+                return ("Ce pays n'existe pas !");
+            }
+        }
+
+        function getCountryNameLongerThen(taille){
+            const arrBrute = countries.filter(item => item.name.length > x);
+            const arrTrie = newarr.map(function (item) {return {name: item.name,code: item.code, length: item.name.length,};});
+            arrTrie.sort((a, b) => b.name.length - a.name.length);
+            return (arrTrie);
+        }
+
     </script>
 
 </head>
