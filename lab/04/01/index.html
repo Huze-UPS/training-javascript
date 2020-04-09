@@ -5,8 +5,68 @@
     <meta charset="utf-8">
 
     <script>
-        function initForm() {
 
+        function initMake(){
+
+            const makeSelect = document.getElementById(`makeSelect`);
+            makeSelect.innerHTML = ``;
+
+            makes.sort((a, b) => a.name.localeCompare(b.name));
+            
+            makes.forEach(make => {
+                const option = document.createElement(`option`);
+                option.value = make.name;
+                option.innerText = make.name;
+                makeSelect.appendChild(option);
+            });
+
+            makeSelect.onchange();
+        }
+
+        function onSelectMake(){
+
+            const modelSelect = document.getElementById(`modelSelect`);
+
+            const makeSelected = makes.find(make => make.name === document.getElementById('makeSelect').value);
+            
+            modelSelect.innerHTML = '';
+
+            makeSelected.models.sort((a, b) => a.name.localeCompare(b.name));
+            makeSelected.models.forEach(model => {
+                const option = document.createElement(`option`);
+                option.value = model.name;
+                option.innerText = model.name;
+                makeSelect.appendChild(option);
+            });
+
+            modelSelect.onchange();
+        }
+
+        function onSelectModel(){
+            const field3 = document.getElementById(`field3`);
+            const colorSelect = document.getElementById(`colorSelect`);
+        
+            colorSelect.innerHTML = '';
+        }
+
+        function buy(){
+            document.getElementById('makeResult').innerText = document.getElementById('');
+            document.getElementById('modelResult').innerText = document.getElementById('');
+            document.getElementById('colorResult').innerText = document.getElementById('');
+
+
+
+
+            const option =
+                Array.from(document.getElementsByName('options'))
+                .filter(option => option.checked)
+                .map(option => option.value)
+                .join(' / ');
+            document.getElementById('optionsResult').innerText = options;
+        }
+
+        function initForm() {
+            initMake();
         }
     </script>
 
@@ -45,7 +105,7 @@
 
     </form>
 
-    <button id="buttonBuy">Acheter sans me poser de question ni regret !</button>
+    <button id="buttonBuy" onclick=buy()>Acheter sans me poser de question ni regret !</button>
 
     <p></p>
 
