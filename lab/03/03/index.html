@@ -5,6 +5,42 @@
     <meta charset="utf-8">
 
     <script>
+
+        class LabError {
+
+            /**@constructor
+              *Nom de l'erreur
+              *Message d'erreur
+            */
+            constructor(name, message){
+                this.name = name;
+                this.message = message;
+            }
+
+        }
+
+        function sum(int1, int2){
+            const myError = new LabError('Type Error',"Le résultat n'est pas un entier.");
+            const result = int1 + int2;
+            if(isNaN(result)){
+                throw myError;
+            }
+            return result;
+        }
+
+        function callSum(int1, int2){
+            let result;
+            try {
+                result = sum(int1, int2);
+            } catch(err) {
+                result = NaN;
+                console.log(`Une erreur est survenue : ${err.name} ${err.message}`);
+            } finally {
+                return result;
+            }
+            
+        }
+
     </script>
 
 </head>
