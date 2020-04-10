@@ -18,20 +18,26 @@
     }
 
     // This function calls the callback with success after 1s
-    function deferredResult(result, callback) {
-        setTimeout(() => callback(undefined, result), 1000);
+    function deferredResult(result) {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(result), 1000);
+        });
+        ///setTimeout(() => callback(undefined, result), 1000);
     }
 
     // This function calls the callback with error after 1s
-    function deferredError(error, callback) {
-        setTimeout(() => callback(error), 1000);
+    function deferredError(error) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => reject(error), 1000);
+        });
+        ///setTimeout(() => callback(error), 1000);
     }
 
     // Select a random starter
-    function selectStarter(menu, callback) {
+    function selectStarter(menu) {
         switch (menu) {
             case 'MAXI':
-                deferredResult(random(starters), callback);
+                const promiseStart = deferredResult(random(starters));
                 break;
             default:
                 deferredError(new Error('Your menu does not include a starter'), callback);
@@ -39,16 +45,16 @@
     }
 
     // Select a random main course
-    function selectMainCourse(menu, callback) {
-        deferredResult(random(mainCourses), callback);
+    function selectMainCourse(menu) {
+        const promiseMain = deferredResult(random(mainCourses));
     }
 
     // Select a random dessert
-    function selectDessert(menu, callback) {
+    function selectDessert(menu) {
         switch (menu) {
             case 'STANDARD':
             case 'MAXI':
-                deferredResult(random(desserts), callback);
+                const promiseDessert = deferredResult(random(desserts));
                 break;
             default:
                 deferredError(new Error('Your menu does not include a dessert'), callback);
@@ -57,32 +63,13 @@
 
     function serveMenu(menu) {
         const meal = {};
-        selectStarter(menu, (err, starter) => {
-            if (err) {
-                meal.starter = err.message;
-            } else {
-                meal.starter = starter;
-            }
-            console.log(`Starter     => ${meal.starter}`);
-
-            selectMainCourse(menu, (err, mainCourse) => {
-                if (err) {
-                    meal.mainCourse = err.message;
-                } else {
-                    meal.mainCourse = mainCourse;
-                }
-                console.log(`Main course => ${meal.mainCourse}`);
-
-                selectDessert(menu, (err, dessert) => {
-                    if (err) {
-                        meal.dessert = err.message;
-                    } else {
-                        meal.dessert = dessert;
-                    }
-                    console.log(`Dessert     => ${meal.dessert}`);
-                });
-            });
-        })
+        selectStarter(menu)
+            .then((starter) => meal.starter = starter)
+            .catch(err => meal.starter = err.message)
+            .then(() => console.log(`Starter    => ${meal.starter}`))
+            .then(selectMainCourse)
+            .then((mainCourse) => meal.mainCourse = mainCourse)
+            .catch(err => meal.mainCourse = err.message)
     }
 </script>
 
