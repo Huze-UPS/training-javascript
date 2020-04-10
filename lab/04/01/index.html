@@ -42,27 +42,38 @@
             modelSelect.onchange();
         }
 
-        function onSelectModel(){
-            const field3 = document.getElementById(`field3`);
-            const colorSelect = document.getElementById(`colorSelect`);
-        
+        function onSelectModel() {
+            const fieldset3 = document.getElementById('fieldset3');
+            const colorSelect = document.getElementById('colorSelect');
+
+            ///Find selected make & model
+            const selectedMake = makes.find(make = make.name === document.getElementById('makeSelect').value);
+            const selectedModel = selectedMake.models.find(model = model.name === document.getElementById('modelSelect').value);
+
+            ///Empty select
             colorSelect.innerHTML = '';
+
+            ///Create all html options
+            selectedModel.colors
+                .sort()
+                .forEach(color = {
+                    const option = document.createElement('option'),
+                    option.value = color,
+                    option.innerText = color,
+                    colorSelect.appendChild(option),
+                });
         }
+        function buy() {
+            document.getElementById('makeResult').innerHTML = document.getElementById('makeSelect').value;
+            document.getElementById('modelResult').innerHTML = document.getElementById('modelSelect').value;
+            document.getElementById('colorResult').innerHTML = document.getElementById('colorSelect').value;
 
-        function buy(){
-            document.getElementById('makeResult').innerText = document.getElementById('');
-            document.getElementById('modelResult').innerText = document.getElementById('');
-            document.getElementById('colorResult').innerText = document.getElementById('');
-
-
-
-
-            const option =
+            const options =
                 Array.from(document.getElementsByName('options'))
-                .filter(option => option.checked)
-                .map(option => option.value)
-                .join(' / ');
-            document.getElementById('optionsResult').innerText = options;
+                .filter(option = option.checked)
+                .map(option = option.value)
+                .join('  ');
+            document.getElementById('optionsResult').innerHTML = options;
         }
 
         function initForm() {
