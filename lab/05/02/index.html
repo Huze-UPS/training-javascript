@@ -37,15 +37,15 @@
     async function selectStarter(menu) {
         switch (menu) {
             case 'MAXI':
-                return deferredResult(random(starters));
+                return await deferredResult(random(starters));
             default:
-                return deferredError(new Error('Your menu does not include a starter'), callback);
+                return await deferredError(new Error('Your menu does not include a starter'), callback);
         }
     }
 
     // Select a random main course
     async function selectMainCourse(menu) {
-        return deferredResult(random(mainCourses));
+        return await deferredResult(random(mainCourses));
     }
 
     // Select a random dessert
@@ -53,15 +53,37 @@
         switch (menu) {
             case 'STANDARD':
             case 'MAXI':
-                return deferredResult(random(desserts));
+                return await deferredResult(random(desserts));
             default:
-                return deferredError(new Error('Your menu does not include a dessert'), callback);
+                return await deferredError(new Error('Your menu does not include a dessert'), callback);
         }
     }
 
     async function serveMenu(menu) {
         const meal = {};
-        selectStarter(menu)
+        try {
+            meal.starter = await selectStarter(menu);
+        } catch (err) {
+            meal.starter = err.message;
+        } finally {
+            console.log(`Starter     => ${meal.starter}`);
+        }
+
+        try {
+            meal.mainCourse = await selectMainCourse(menu);
+        } catch (err) {
+            meal.mainCourse = err.message;
+        } finally {
+            console.log(`Main course => ${meal.mainCourse}`);
+        }
+
+        try {
+            meal.dessert = await selectDessert(menu);
+        } catch (err) {
+            meal.dessert = err.message;
+        } finally {
+            console.log(`Dessert     => ${meal.dessert}`);
+        }
     }
 </script>
 

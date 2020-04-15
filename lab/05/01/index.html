@@ -37,16 +37,15 @@
     function selectStarter(menu) {
         switch (menu) {
             case 'MAXI':
-                const promiseStart = deferredResult(random(starters));
-                break;
+                return deferredResult(random(starters));
             default:
-                deferredError(new Error('Your menu does not include a starter'), callback);
+                return deferredError(new Error('Your menu does not include a starter'), callback);
         }
     }
 
     // Select a random main course
     function selectMainCourse(menu) {
-        const promiseMain = deferredResult(random(mainCourses));
+        return deferredResult(random(mainCourses));
     }
 
     // Select a random dessert
@@ -54,10 +53,9 @@
         switch (menu) {
             case 'STANDARD':
             case 'MAXI':
-                const promiseDessert = deferredResult(random(desserts));
-                break;
+                return deferredResult(random(desserts));
             default:
-                deferredError(new Error('Your menu does not include a dessert'), callback);
+                return deferredError(new Error('Your menu does not include a dessert'), callback);
         }
     }
 
@@ -70,6 +68,11 @@
             .then(selectMainCourse)
             .then((mainCourse) => meal.mainCourse = mainCourse)
             .catch(err => meal.mainCourse = err.message)
+            .then(() => console.log(`Main course => ${meal.mainCourse}`))
+            .then(selectDessert)
+            .then((dessert) => meal.dessert = dessert)
+            .catch(err => meal.dessert = err.message)
+            .then(() => console.log(`Dessert     => ${meal.dessert}`));
     }
 </script>
 
